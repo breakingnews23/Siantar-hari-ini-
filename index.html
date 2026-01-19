@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siantar Hari Ini - Portal Berita Terkini Kota Pematangsiantar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset dan variabel CSS */
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #dc2626;
+            --accent: #fbbf24;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f1f5f9;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #b91c1c;
+            transform: translateY(-2px);
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-top {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 0;
+        }
+        
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .logo i {
+            color: var(--accent);
+        }
+        
+        .date-time {
+            font-size: 0.9rem;
+        }
+        
+        .main-nav {
+            padding: 15px 0;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links .active {
+            color: var(--secondary);
+        }
+        
+        .nav-links .active::after {
+            width: 100%;
+        }
+        
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(30, 58, 138, 0.9), rgba(30, 58, 138, 0.8)), url('https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Berita Utama */
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin: 40px 0 20px;
+            color: var(--primary);
+        }
+        
+        .section-title h2 {
+            font-size: 1.8rem;
+            border-left: 5px solid var(--secondary);
+            padding-left: 10px;
+        }
+        
+        .featured-news {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .main-news {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+        
+        .main-news:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .main-news img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+        
+        .main-news-content {
+            padding: 25px;
+        }
+        
+        .news-category {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .main-news h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .main-news p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+        
+        .side-news {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .side-news-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            display: flex;
+        }
+        
+        .side-news-item:hover {
+            transform: translateY(-3px);
+        }
+        
+        .side-news-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+        }
+        
+        .side-news-content {
+            padding: 15px;
+            flex: 1;
+        }
+        
+        .side-news-content h4 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        /* Berita Terbaru */
+        .latest-news {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .news-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .news-card-content {
+            padding: 20px;
+        }
+        
+        .news-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .news-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Kategori */
+        .categories {
+            background-color: white;
+            padding: 40px 0;
+            margin: 50px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .category-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .category-item {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .category-item:hover {
+            background-color: var(--secondary);
+            transform: scale(1.05);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .footer-about p {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #334155;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: #cbd5e1;
+            transition: var(--transition);
+        }
+        
+        .footer-links ul li a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .featured-news {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .header-top .container {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .side-news-item {
+                flex-direction: column;
+            }
+            
+            .side-news-img {
+                width: 100%;
+                height: 150px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+            
+            .main-news h3 {
+                font-size: 1.3rem;
+            }
+            
+            .category-list {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .category-item {
+                width: 80%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <a href="#" class="logo">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Siantar Hari Ini</span>
+                </a>
+                <div class="date-time">
+                    <span id="current-date"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-nav">
+            <div class="container">
+                <div class="mobile-toggle" id="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#" class="active">Beranda</a></li>
+                    <li><a href="#">Politik</a></li>
+                    <li><a href="#">Ekonomi</a></li>
+                    <li><a href="#">Sosial</a></li>
+                    <li><a href="#">Olahraga</a></li>
+                    <li><a href="#">Hiburan</a></li>
+                    <li><a href="#">Kesehatan</a></li>
+                    <li><a href="#">Lingkungan</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Berita Terkini dari Kota Pematangsiantar</h1>
+            <p>Dapatkan informasi terupdate seputar perkembangan kota Siantar, kebijakan pemerintah, kegiatan masyarakat, dan berbagai peristiwa penting lainnya langsung di genggaman Anda.</p>
+            <a href="#berita-utama" class="btn">Baca Berita Hari Ini</a>
+        </div>
+    </section>
+
+    <!-- Berita Utama -->
+    <div class="container">
+        <div class="section-title">
+            <h2>Berita Utama</h2>
+        </div>
+        
+        <div class="featured-news" id="berita-utama">
+            <!-- Berita utama besar -->
+            <div class="main-news">
+                <img src="https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Walikota Siantar menghadiri peresmian pasar baru">
+                <div class="main-news-content">
+                    <span class="news-category">Pembangunan</span>
+                    <h3>Walikota Resmikan Pasar Modern Siantar Barat, Tingkatkan Ekonomi Masyarakat</h3>
+                    <p>Pasar modern dengan fasilitas lengkap diresmikan oleh Walikota Pematangsiantar untuk meningkatkan kenyamanan berbelanja dan menciptakan pusat perekonomian baru di wilayah Siantar Barat. Pasar ini menampung 300 pedagang dengan sistem pengelolaan yang terintegrasi.</p>
+                    <div class="news-meta">
+                        <span><i class="far fa-clock"></i> 3 jam yang lalu</span>
+                        <span><i class="far fa-eye"></i> 1.245 dilihat</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar berita -->
+            <div class="side-news">
+                <div class="side-news-item">
+                    <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Festival budaya Siantar" class="side-news-img">
+                    <div class="side-news-content">
+                        <span class="news-category" style="background-color: #10b981;">Budaya</span>
+                        <h4>Festival Budaya Siantar 2024 Digelar Akhir Pekan Ini</h4>
+                        <div class="news-meta">
+                            <span><i class="far fa-clock"></i> 5 jam yang lalu</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="side-news-item">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Kecelakaan lalu lintas" class="side-news-img">
+                    <div class="side-news-content">
+                        <span class="news-category" style="background-color: #8b5cf6;">Lalu Lintas</span>
+                        <h4>Kecelakaan Beruntun di Jalan Sutomo, 2 Orang Luka-luka</h4>
+                        <div class="news-meta">
+                            <span><i class="far fa-clock"></i> 7 jam yang lalu</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="side-news-item">
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Rapat DPRD Siantar" class="side-news-img">
+                    <div class="side-news-content">
+                        <span class="news-category" style="background-color: #f59e0b;">Politik</span>
+                        <h4>DPRD Siantar Bahas Raperda tentang Pengelolaan Sampah</h4>
+                        <div class="news-meta">
+                            <span><i class="far fa-clock"></i> 10 jam yang lalu</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Berita Terbaru -->
+        <div class="section-title">
+            <h2>Berita Terbaru</h2>
+        </div>
+        
+        <div class="latest-news">
+            <!-- Berita 1 -->
+            <div class="news-card">
+                <img src="https://images.unsplash.com/photo-1551524165-6b6e5a6166f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Lomba olahraga pelajar">
+                <div class="news-card-content">
+                    <span class="news-category">Olahraga</span>
+                    <h3>Porseni Pelajar Siantar 2024 Dibuka, 5000 Peserta Ikut Serta</h3>
+                    <p>Pekan Olahraga dan Seni Pelajar (Porseni) Kota Pematangsiantar resmi dibuka hari ini dengan peserta dari seluruh sekolah se-Kota Siantar.</p>
+                    <div class="news-meta">
+                        <span><i class="far fa-clock"></i> 1 hari yang lalu</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Berita 2 -->
+            <div class="news-card">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pembangunan jalan">
+                <div class="news-card-content">
+                    <span class="news-category" style="background-color: #059669;">Infrastruktur</span>
+                    <h3>Proyek Peningkatan Jalan Merdeka Capai 75%, Akan Rampung Bulan Depan</h3>
+                    <p>Pengerjaan peningkatan jalan protokol di Jalan Merdeka sudah mencapai 75% dan diperkirakan selesai dalam waktu satu bulan ke depan.</p>
+                    <div class="news-meta">
+                        <span><i class="far fa-clock"></i> 1 hari yang lalu</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Berita 3 -->
+            <div class="news-card">
+                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pelatihan UMKM">
+                <div class="news-card-content">
+                    <span class="news-category" style="background-color: #7c3aed;">Ekonomi</span>
+                    <h3>Dinas Perdagangan Gelar Pelatihan Digital Marketing untuk 150 UMKM</h3>
+                    <p>Pelatihan pemasaran digital digelar untuk membantu pelaku UMKM di Siantar memasarkan produknya secara online dan meningkatkan penjualan.</p>
+                    <div class="news-meta">
+                        <span><i class="far fa-clock"></i> 2 hari yang lalu</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kategori Berita -->
+    <section class="categories">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kategori Berita</h2>
+            </div>
+            <div class="category-list">
+                <a href="#" class="category-item">Politik</a>
+                <a href="#" class="category-item">Ekonomi</a>
+                <a href="#" class="category-item">Sosial</a>
+                <a href="#" class="category-item">Olahraga</a>
+                <a href="#" class="category-item">Hiburan</a>
+                <a href="#" class="category-item">Kesehatan</a>
+                <a href="#" class="category-item">Pendidikan</a>
+                <a href="#" class="category-item">Lingkungan</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Siantar Hari Ini</div>
+                    <p>Portal berita terpercaya yang menyajikan informasi terkini seputar Kota Pematangsiantar. Berkomitmen menyampaikan berita yang akurat, cepat, dan terpercaya.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Menu Cepat</h3>
+                    <ul>
+                        <li><a href="#">Beranda</a></li>
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Redaksi</a></li>
+                        <li><a href="#">Pedoman Media</a></li>
+                        <li><a href="#">Kontak</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Kategori Populer</h3>
+                    <ul>
+                        <li><a href="#">Politik</a></li>
+                        <li><a href="#">Ekonomi</a></li>
+                        <li><a href="#">Olahraga</a></li>
+                        <li><a href="#">Hiburan</a></li>
+                        <li><a href="#">Kesehatan</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Kontak Kami</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Jl. Sudirman No. 123, Pematangsiantar</li>
+                        <li><i class="fas fa-phone"></i> (0622) 12345</li>
+                        <li><i class="fas fa-envelope"></i> redaksi@siantarhariini.com</li>
+                        <li><i class="fas fa-clock"></i> Senin - Jumat: 08:00 - 17:00</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 Siantar Hari Ini. Semua hak dilindungi undang-undang.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Fungsi untuk menampilkan tanggal dan waktu terkini
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            const formattedDate = now.toLocaleDateString('id-ID', options);
+            document.getElementById('current-date').textContent = formattedDate;
+        }
+        
+        // Panggil fungsi pertama kali
+        updateDateTime();
+        
+        // Update setiap menit
+        setInterval(updateDateTime, 60000);
+        
+        // Toggle menu mobile
+        document.getElementById('mobile-toggle').addEventListener('click', function() {
+            document.getElementById('nav-links').classList.toggle('active');
+        });
+        
+        // Tutup menu mobile saat klik di luar
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('nav-links');
+            const mobileToggle = document.getElementById('mobile-toggle');
+            
+            if (!navLinks.contains(event.target) && !mobileToggle.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Smooth scroll untuk tombol "Baca Berita Hari Ini"
+        document.querySelector('.btn[href="#berita-utama"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('#berita-utama').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
